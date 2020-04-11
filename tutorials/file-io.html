@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <link rel="icon" href="../resources/images/favicon.ico" type="image/x=icon"/>
+        <link rel="stylesheet" href="../resources/styles.css" type="text/css"/>
+    </head>
+    <body>
+        <div class="banner">
+            <img src="../resources/images/logo.jpg">
+        </div>
+        <ul class="navbar">
+            <li>
+                <a class="navbar-item" href="../index.html">Home</a>
+            </li>
+            <li >
+                <a class="navbar-item selected">Tutorials</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/projects.html">Projects</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/resources.html">Resources</a>
+            </li>
+        </ul>
+        <div class="content">
+            <div class="heading">
+                <h1 class="heading-text">File I/O</h1>
+                <div class="back">
+                <a class="back heading" href="../pages/tutorials.html">Back</a>
+            </div>
+            </div>
+            <p>
+                File I/O with Kotlin is pretty easy to do. First we are going to create an input file that we will be having Kotlin read. We will name it <em>Input.txt</em>. Its contents will be:
+            </p>
+            <img class="tutorial-image"  src="../resources/images/file-io/file-io-one.png">
+            <p>
+                Next to read line by line we will first create a file object and give it the input file's name. We then will call the file's <em>forEachLine</em> method. This method will read each line with a reference to the line being refered to by the idetifier <em>it</em>.
+            </p>
+            <img class="tutorial-image" src="../resources/images/file-io/file-io-two.png">
+            <p>
+                To write to a file simply create a file object and pass in the file name you want for it. Then call it's <em>writeText</em> method and pass in a string of what you want to write. Do note that this will overwrite any existing content within the file.
+            </p>
+            <img class="tutorial-image" src="../resources/images/file-io/file-io-three.png">
+            <p>
+                One more thing to note is that because Kotlin's File I/O operations make use of Java's class suite, we also have access to the Java scanner class. With this we can preform even more operations such as scanning a file line by line and printing out each token in the line.
+            </p>
+            <img class="tutorial-image" src="../resources/images/file-io/file-io-four.png">
+        </div>
+    </body>
+</html>
