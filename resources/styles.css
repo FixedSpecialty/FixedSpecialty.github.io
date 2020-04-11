@@ -52,6 +52,17 @@ a.back{
 }
 
 
+
+.heading{
+    display: flex;
+    justify-content: space-between
+}
+
+.heading-text{
+    color: #4285f4;
+}
+
+
 #tutorial-list{
     display:flex;
     list-style:none;
