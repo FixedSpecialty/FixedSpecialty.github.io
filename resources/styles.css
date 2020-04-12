@@ -68,13 +68,11 @@ a.back{
     color: #4285fa;
 }
 
-.highlight{
-    background: #efefef;
-}
 
 code{
     display:block;
     padding:10px;
+    background: #fafafa;
 }
 
 .heading{
