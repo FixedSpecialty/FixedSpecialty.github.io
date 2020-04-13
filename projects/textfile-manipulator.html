@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <link rel="icon" href="../resources/images/favicon.ico" type="image/x=icon"/>
+        <link rel="stylesheet" href="../resources/styles.css" type="text/css"/>
+    </head>
+    <body>
+        <div class="banner">
+            <img src="../resources/images/logo.jpg">
+        </div>
+        <ul class="navbar">
+            <li>
+                <a class="navbar-item" href="../index.html">Home</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/tutorials.html">Tutorials</a>
+            </li>
+            <li >
+                <a class="navbar-item selected">Projects</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/resources.html">Resources</a>
+            </li>
+        </ul>
+        <div class="content">
+            <div class="heading">
+                <h1 class="heading-text">Textfile Manipulator</h1>
+                <div class="back">
+                    <a class="back heading" href="../pages/projects.html">Back</a>
+                </div>
+            </div>
+            <h2>About</h2>
+            <p>
+                The textfile manipulator is an application designed to allow you to preform various operations on a given textfile. These operations consist of: find and replace all, get word count, print the file's contents, and append to the file.
+            </p>
+            <h2>Compiling and Running</h2>
+            <p>
+                To compile the testfile manipulator program run the following command in the directory containing the source file:
+                <code>$ kotlinc textfile-manipulator.kt -d textfile-manipulator.jar</code>
+                Next use the following command to run the program:
+                <code>$ java -jar textfile-manipulator.jar</code>
+                From there use one of the following commands:
+                <pre><code>
+$ far input-file
+$ wc input-file
+$ e input-file
+$ a input-file
+$ q
+                </code></pre>
+            </p>
+            <h2>Code</h2>
+            <p>
+                The Textfile Manipulator consits of one source-file: textfile-manipulator.kt
+                <pre><code>
+import java.io.File
+import java.io.FileNotFoundException
+
+fun main(){
+    var run = true
+    while(run){
+        print("$ ")
+        var line = readLine()?.split(" ")
+        if(line != null){
+            if(line.size == 2) {
+                var cmd = line[0]
+                var fileName = line[1]
+                when (cmd) {
+                    "far" -> findAndReplaceAll(fileName)
+                    "wc" -> getWordCount(fileName)
+                    "e" -> echo(fileName)
+                    "a" -> append(fileName)
+                    "q" -> {
+                        run = false; println("Exiting program!")
+                    }
+                    else -> println("Invalid Command!")
+                }
+            } else{
+                println("Invalid amount of arguments!")
+            }
+        }
+    }
+}
+
+private fun findAndReplaceAll(fileName: String){
+    try{
+        var file = File(fileName)
+        var text = file.readText()
+        print("Oldstring: ")
+        var old = readLine()
+        print("Newstring: ")
+        var new = readLine()
+        text = text.replace(old.toString(), new.toString())
+        file.writeText(text)
+    } catch(e: FileNotFoundException){
+        println("File was not found!")
+    }
+}
+private fun getWordCount(fileName: String){
+    try{
+        var file = File(fileName)
+        var wordCount = 0
+        file.forEachLine {
+            var lineCount = it.split(" ")
+            wordCount += lineCount.size
+        }
+        println("Word count: $wordCount")
+    } catch(e: FileNotFoundException){
+        println("File was not found!")
+    }
+}
+private fun echo(fileName: String){
+    try{
+        var file = File(fileName)
+        file.forEachLine { println(it) }
+    } catch(e: FileNotFoundException){
+        println("File was not found!")
+    }
+}
+
+private fun append(fileName: String){
+    try{
+        var file = File(fileName)
+        print("Append: ")
+        var text = readLine()
+        file.appendText(text.toString())
+    } catch(e: FileNotFoundException){
+        println("File was not found!")
+    }
+}              
+                </code></pre>
+            </p>
+        </div>
+    </body>
+</html>
