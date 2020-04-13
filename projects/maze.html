@@ -1,0 +1,150 @@
+<html>
+    <head>
+        <link rel="icon" href="../resources/images/favicon.ico" type="image/x=icon"/>
+        <link rel="stylesheet" href="../resources/styles.css" type="text/css"/>
+        <script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
+    </head>
+    <body>
+        <div class="banner">
+            <img src="../resources/images/logo.jpg">
+        </div>
+        <ul class="navbar">
+            <li>
+                <a class="navbar-item" href="../index.html">Home</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/tutorials.html">Tutorials</a>
+            </li>
+            <li >
+                <a class="navbar-item selected">Projects</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/resources.html">Resources</a>
+            </li>
+        </ul>
+        <div class="content">
+            <div class="heading">
+                <h1 class="heading-text">Maze Generator: Andre Murphy</h1>
+                <div class="back">
+                <a class="back heading" href="../pages/projects.html">Back</a>
+            </div>
+            </div>
+            <p>
+                <div class="kotlin-code" theme="idea">
+                   import Maze.Cell.*
+import kotlin.random.Random
+
+class Maze(private val width: Int, private val height: Int) //recursive backtracking algorithm
+{
+
+    private enum class Cell
+    {
+        WALL, PATH
+    }
+
+    private val data = Array(width)
+    { //Array<Array<Maze.Cell>>
+        Array(height)
+        {
+            PATH
+        }
+    }
+
+    init
+    {
+        generate()
+    }
+
+    private fun maze(x: Int, y: Int)
+    {
+
+        val traceX = intArrayOf(1, -1, 0, 0) //left, right
+        val traceY = intArrayOf(0, 0, 1, -1) //up, down
+
+        var dir = Random.nextInt(until = 4)
+        var count = 0
+        while(count < 4)
+        {
+            val x1 = x + traceX[dir]
+            val x2 = x1 + traceX[dir]
+            val y1 = y + traceY[dir]
+            val y2 = y1 + traceY[dir]
+
+            if(data[x1][y1] == WALL && data[x2][y2] == WALL)
+            {
+                data[x1][y1] = PATH
+                data[x2][y2] = PATH
+                maze(x2, y2)
+            }
+            else
+            {
+                dir = (dir + 1) % 4 //keep getting closer to the end of the path
+                count += 1
+            }
+        }
+
+    }
+
+    fun generate()
+    {
+        for(x in 0 until width)
+        { //sets all cells to walls
+            for(y in 0 until height)
+            {
+                data[x][y] = WALL
+            }
+        }
+
+        for(x in 0 until width)
+        { //sets the x outline of the path wall
+            data[x][0] = PATH
+            data[x][height-1] = PATH
+        }
+        for(y in 0 until height)
+        { //sets the y outline of the
+            data[0][y] = PATH
+            data[width-1][y] = PATH
+        }
+
+        data[2][2] = PATH //double check that start of maze is a path
+        maze(2, 2) //generates all paths from the start of the path
+        data[2][1] = PATH //sets the start of the path
+        data[width - 3][height - 2] = PATH //sets the end of the path
+    }
+
+    fun print()
+    { //iterates through entire maze and prints each cell
+        for(y in 0 until height)
+        {
+            for(x in 0 until width)
+            {
+                if(data[x][y] == WALL)
+                {
+                    print("|||")
+                }
+                else
+                {
+                    print("   ")
+                }
+            }
+            println()
+        }
+    }
+
+}
+
+fun main()
+{
+    val m = Maze(27, 23) //must be odd
+    m.generate()
+    m.print()
+}
+                </div>
+
+            </p>
+            <p>
+                For those not too familier with html, use p tags for text, em tag for italice, strong for bold. Use an img tag for images with the href="../resources/images/name_of_picture" and have your image in the iamges folder. To link the tutorials page to you tutorial set the a tag href="../tutorials/name_of_your_page.html.
+            </p>
+        </div>
+    </body>
+</html>
