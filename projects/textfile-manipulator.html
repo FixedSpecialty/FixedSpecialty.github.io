@@ -2,6 +2,7 @@
     <head>
         <link rel="icon" href="../resources/images/favicon.ico" type="image/x=icon"/>
         <link rel="stylesheet" href="../resources/styles.css" type="text/css"/>
+        <script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
     </head>
     <body>
         <div class="banner">
@@ -50,7 +51,7 @@ $ q
             <h2>Code</h2>
             <p>
                 The Textfile Manipulator consits of one source-file: textfile-manipulator.kt
-                <pre><code>
+                <div class="kotlin-code" theme="idea">
 import java.io.File
 import java.io.FileNotFoundException
 
@@ -126,7 +127,7 @@ private fun append(fileName: String){
         println("File was not found!")
     }
 }              
-                </code></pre>
+</div>
             </p>
         </div>
     </body>
