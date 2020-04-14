@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <link rel="icon" href="../resources/images/favicon.ico" type="image/x=icon"/>
+        <link rel="stylesheet" href="../resources/styles.css" type="text/css"/>
+        <script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
+
+    </head>
+    <body>
+        <div class="banner">
+            <img src="../resources/images/logo.jpg">
+        </div>
+        <ul class="navbar">
+            <li>
+                <a class="navbar-item" href="../index.html">Home</a>
+            </li>
+            <li >
+                <a class="navbar-item selected">Tutorials</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/projects.html">Projects</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/resources.html">Resources</a>
+            </li>
+        </ul>
+        <div class="content">
+            <div class="heading">
+                <h1 class="heading-text">Your First Program</h1>
+                <div class="back">
+                <a class="back heading" href="../pages/tutorials.html">Back</a>
+                </div>
+            </div>
+            <p>
+                <h2 class="headint-text">Hello, Kotlin.</h2>
+                Welcome to Kotlin!<br /><br />
+                The first steps to writing your very own program are to set up the tools necessary for compiling and executing your files. If you have not done this yet, setup instructions can be found under <a class="link" href="../pages/resources.html">Resources</a>. Once you've done this, you are ready to start coding!<br /><br />
+            
+                Let's start with the very basics.<br />
+                Create a new Kotlin file, named <em>HelloWorld.kt</em> (Kotlin files use the extension <em>.kt</em>, and open the file in the editor of your choice. Writing the following code, compiling, and executing your program will make it say hello! 
+                <pre><code>                
+fun main(){
+    println("Hello, world! It's Kotlin speaking.")
+}
+                </code></pre>
+            
+            Kotlin programs are usually made up of <b>Functions</b>. In our HelloWorld program, we only have one function-- the <b>main function</b>. Functions are discussed in more detail in a later tutorial.<br /><br />
+            
+            If you haven't set up your program to execute on your computer just yet, you can execute the same code in the browser! In the box below, try editing the program to say something new!
+            
+            </p>
+            <div class="kotlin-code" theme="idea">
+//This is a comment! In Kotlin, a comment can begin with two forward slashes.
+//A comment has no effect on your programs execution, so you can type whatever you want.
+
+fun main(){
+    println("What should I say...?")	//Try typing something new inbetween the quotes!
+}
+            </div>
+
+        </div>
+    </body>
+</html>
