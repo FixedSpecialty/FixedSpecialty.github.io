@@ -29,8 +29,17 @@
                 <a class="back heading" href="../pages/projects.html">Back</a>
             </div>
             </div>
-            <p> This is a maze generator that uses a recursive division algorithm.
-                </p>
+            <h2>About</h2>
+            <p>
+                The maze generator is a fun project that can be used to become more familiar with most languages. Many algorithms for maze generation can be found on line but I settled on the recursive division algorithm to keep this program short. It starts out by populating the full board with only walls. Then it creates and entrance and exit. There are only 4 possible directions and for every direction it checks for either more walls or more paths.
+            </p>
+            <h2>Compiling and Running</h2>
+            <p>
+                To compile the maze generator program run the following command in the directory containing the source file:
+                <code>$ kotlinc Maze.kt -d Maze.jar</code>
+                Next use the following command to run the program:
+                <code>$ java -jar Maze.jar</code>
+            </p>
                 <div class="kotlin-code" theme="idea">
                    import Maze.Cell.*
 import kotlin.random.Random
@@ -61,7 +70,6 @@ class Maze(private val width: Int, private val height: Int) //recursive algorith
 
         val traceX = intArrayOf(1, -1, 0, 0) //left, right
         val traceY = intArrayOf(0, 0, 1, -1) //up, down
-
         var dir = Random.nextInt(until = 4)
         var count = 0
         while(count < 4)
@@ -101,6 +109,7 @@ class Maze(private val width: Int, private val height: Int) //recursive algorith
             data[x][0] = PATH
             data[x][height-1] = PATH
         }
+        
         for(y in 0 until height)
         { //sets the y outline of the
             data[0][y] = PATH
@@ -136,7 +145,7 @@ class Maze(private val width: Int, private val height: Int) //recursive algorith
 
 fun main()
 {
-    val m = Maze(27, 23) //must be odd
+    val m = Maze(27, 23) //CHANGE ME!!! I MUST BE ODD!
     m.generate()
     m.print()
 }
