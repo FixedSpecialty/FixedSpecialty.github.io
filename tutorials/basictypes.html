@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <link rel="icon" href="../resources/images/favicon.ico" type="image/x=icon"/>
+        <link rel="stylesheet" href="../resources/styles.css" type="text/css"/>
+        <script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
+
+    </head>
+    <body>
+        <div class="banner">
+            <img src="../resources/images/logo.jpg">
+        </div>
+        <ul class="navbar">
+            <li>
+                <a class="navbar-item" href="../index.html">Home</a>
+            </li>
+            <li >
+                <a class="navbar-item selected">Tutorials</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/projects.html">Projects</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/resources.html">Resources</a>
+            </li>
+        </ul>
+        <div class="content">
+            <div class="heading">
+                <h1 class="heading-text">Basic Types</h1>
+                <div class="back">
+                <a class="back heading" href="../pages/tutorials.html">Back</a>
+                </div>
+            </div>
+            <p>In Kotlin, everything is an object. This means that you can call member functions and properties on all of you variables!<br><br> The basic types of Kotlin include: <ul>
+                <li>Numbers</li>
+                <li>Characters</li>
+                <li>Booleans</li>
+                <li>Arrays</li>
+                <li>Strings</li>
+            </ul>
+
+            <h3>
+                Numbers
+            </h3>
+            <code>
+                val one = 1 // Int <br>
+val threeBillion = 3000000000 // Long <br>
+val oneLong = 1L // Long <br>
+val oneByte: Byte = 1 <br>
+val pi = 3.14 // Double<br>
+val e = 2.7182818284 // Double<br>
+val eFloat = 2.7182818284f // Float, actual value is 2.7182817<br>
+            </code><br>
+            Something to note is that functions can only return the type declared in the parameters. There is no implicit conversion. The code below can only print doubles.
+            <code>
+                fun main() <br>
+                {<br>
+                    fun printDouble(d: Double) { print(d) }<br>
+                }        
+            </code>
+            <h3>
+                Characters
+            </h3>
+            Character literals go in single string quotes like 'c'. Characters cannot be treated directly as numbers but we can explicitly convert a character to an Int number.
+            
+            <h3>
+                Booleans
+            </h3>
+Boolean has two values similar to Java: True or False<br>
+
+Built-in operations include<br>
+<ul>
+<li>||</li>
+<li>&&</li>
+<li>!</li>
+</ul>
+            <h3>
+                Arrays
+            </h3>
+            To create an array use the library function arrayOf() and pass in values.
+            <code>
+                val array = arrayOf(1,2,3) //[1,2,3]
+                val x: IntArray = intArrayOf(1, 2, 3) //[1,2,3]
+                val x: ByteArray = byteArrayOf(1, 2, 3) //[1,2,3]
+                val x: ShortArray = shortArrayOf(1, 2, 3) //[1,2,3]
+            </code>
+            <h3>
+                Strings
+            </h3>
+            Strings are represented by the type String and are immutable. Elements in a string can be indexed into as well.
+            <code>
+                String str = "abcd"<br>
+                for (c in str)<br>
+                 {<br>
+                    println(c)<br>
+                }
+            </code>
+        </p>
+        For more information on Basic Types go to <a href=https://kotlinlang.org/docs/reference/basic-types.html>KotlinLang.org</a>
+ 
+            </div>
+
+        </div>
+    </body>
+</html>

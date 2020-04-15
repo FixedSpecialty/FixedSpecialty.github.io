@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <link rel="icon" href="../resources/images/favicon.ico" type="image/x=icon"/>
+        <link rel="stylesheet" href="../resources/styles.css" type="text/css"/>
+        <script src="https://unpkg.com/kotlin-playground@1" data-selector=".kotlin-code"></script>
+
+    </head>
+    <body>
+        <div class="banner">
+            <img src="../resources/images/logo.jpg">
+        </div>
+        <ul class="navbar">
+            <li>
+                <a class="navbar-item" href="../index.html">Home</a>
+            </li>
+            <li >
+                <a class="navbar-item selected">Tutorials</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/projects.html">Projects</a>
+            </li>
+            <li >
+                <a class="navbar-item" href="../pages/resources.html">Resources</a>
+            </li>
+        </ul>
+        <div class="content">
+            <div class="heading">
+                <h1 class="heading-text">Classes</h1>
+                <div class="back">
+                <a class="back heading" href="../pages/tutorials.html">Back</a>
+                </div>
+            </div>
+            <p>Classes in Kotlin are declared like so,</p>
+            <code>
+                class Example {/*class content*/}
+            </code>
+            <br><br>
+            <p>A class has a primary constructor that can be written into the class with return type written after the ':' character</p>
+            <code>
+                class Example constructor(exibitA: String) {/*class content*/}
+            </code>   <br><br>  
+            Since the primary constructor can not have any code inside of it, put all of your code inside and initializer block using the keyword init.
+            <code>
+class Example(exibitA: String) { <br>
+    init {<br>
+        println("First initializer block that prints ${exibitA}")<br>
+        }
+<br><br>
+    init {<br>
+        println("Second initializer block that prints ${exibitA.length}")<br>
+        }<br>
+}
+</code>  
+This will print 
+<code>First initializer block that prints exibitA<br>Second initializer block that prints 6
+</code>
+            For more information on Classes go to <a href=https://kotlinlang.org/docs/reference/classes.html>KotlinLang.org</a>
+ 
+            </div>
+
+        </div>
+    </body>
+</html>
