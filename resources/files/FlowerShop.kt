@@ -1,0 +1,171 @@
+//This is a constant. A constants value never changes
+const val LINE_LENGTH = 9
+const val NUM_LINES = 6
+//This class declaration defines a 'Flower' object.
+//A flower has three 'values' that are set when passed as parameters. Values are read only.
+//The class header contains the default constructor. Secondary constructors can be declared
+//in the class body.
+class Flower(val budType: Bud, val leafType: Leaves, val stemType: Stem)
+{
+    //Here are some examples of enum classes. The 'Bud' class also includes an overridden function.
+    enum class Bud {
+        TULIP, DAISY, ROSE;
+        override fun toString(): String {
+            return when {
+                this == TULIP -> "  |\\/Y| \n  \\ \\'/ \n   `y`  \n"
+                this == DAISY -> "  o( )o \n ( )0( )\n  o( )o \n"
+                else -> " |Y\\@=/\\\n \\y\\^/\\|\n  \\\"Ly/  \n"
+            }
+        }
+    }
+    enum class Leaves {SPIKY, ROUND, POINTED}
+    enum class Stem {STRAIGHT, WAVY, BROKEN}
+    //'init' is a special function that is called when a Flower object is initialized.
+    //You can have multiple init function-- they will be executed from top to bottom.
+    init {
+        println("Alright, I have just the flower for you!")
+    }
+}
+//The main function is where execution starts
+fun main()
+{
+    println("Ah, hello! You must be looking for a flower.")
+    println("I'll ask you a few questions, so I can give you the perfect plant!")
+    val b = questionOne()
+    val l = questionTwo()
+    val s = questionThree()
+    val fl = Flower(b, l, s)
+    println()
+    drawFlower(fl)
+    println("It's a ${fl.budType.name}, with a ${fl.leafType} leaf, and a ${fl.stemType} stem!")
+    println("I think it suits you. Enjoy!")
+
+}
+//This function has zero parameters, and returns a Bud enum.
+fun questionOne(): Flower.Bud{
+    println("First question: What is the perfect time to go for a walk outdoors?")
+    println("a) \"Early in the morning. I love the colors of the sunrise!\"")
+    println("b) \"After lunch. The bees are buzzing and the sun is warm!\"")
+    println("c) \"Late at night. I'm fond of the quiet atmosphere and the cool air!\"")
+    var answer: String
+    while(true){
+        answer = readLine().toString().toLowerCase()
+        when(answer) {
+            "a" -> return Flower.Bud.DAISY
+            "b" -> return Flower.Bud.TULIP
+            "c" -> return Flower.Bud.ROSE
+            else -> {println("Hm, that wasn't an option... could you answer with 'a', 'b', or 'c'?")}
+        }
+    }
+}
+fun questionTwo(): Flower.Leaves{
+    println("Second question: What is your favorite dish to bring on a picnic?")
+    println("a) \"A colorful salad. Fresh from the garden, and packed full of flavor!\"")
+    println("b) \"A hardy sandwich. It's all of my favorite things in one package!\"")
+    println("c) \"A sweet treat. Icecream or cake are the perfect meal! In fact, why not have both?\"")
+    var answer: String
+    while(true){
+        answer = readLine().toString().toLowerCase()
+        when(answer) {
+            "a" -> return Flower.Leaves.POINTED
+            "b" -> return Flower.Leaves.SPIKY
+            "c" -> return Flower.Leaves.ROUND
+            else -> {println("Hm, that wasn't an option... please answer with 'a', 'b', or 'c'.")}
+        }
+    }
+}
+fun questionThree(): Flower.Stem{
+    println("Alright, final question: What kind of plants would be the centerpiece of your own personal garden?")
+    println("a) \"Flowers of course! I want my garden to be full of color!\"")
+    println("b) \"Something exotic. I want to feel like I'm exploring a jungle!\"")
+    println("c) \"My own garden? Not a chance! I can't even keep a cactus alive.\"")
+    var answer: String
+    while(true){
+        answer = readLine().toString().toLowerCase()
+        when(answer) {
+            "a" -> return Flower.Stem.STRAIGHT
+            "b" -> return Flower.Stem.WAVY
+            "c" -> return Flower.Stem.BROKEN
+            else -> {println("Hm, that wasn't an option... please answer with 'a', 'b', or 'c'.")}
+        }
+    }
+}
+fun drawFlower(flower: Flower)
+{
+    //Here's another example of a class declaration. Notice how it only takes one line to declare!
+    //Two 'variables' are passed into the constructor. Variables are readable and writable.
+    class GridSpace (var occupied: Boolean, var c: Char)
+
+    fun setGrid (grid: Array<Array<GridSpace>>) {
+        //when statements are similar to case statements
+        when (flower.stemType) {
+            Flower.Stem.WAVY ->
+                //for loops are similar to Python for loops, or Java's for each loops.
+                //They iterate through values using a range notation.
+                for (i in grid.indices step 3) {
+                    val s1 = grid[i][grid[i].size / 2]
+                    val s2 = grid[i + 1][grid[i].size / 2]
+                    val s3 = grid[i + 2][grid[i].size / 2]
+                    s1.c = '/'
+                    s2.c = '\\'
+                    s3.c = '|'
+                    for (j in 0..2)
+                        grid[i + j][grid[i].size / 2].occupied = true
+                }
+            Flower.Stem.STRAIGHT ->
+                for (i in grid.indices) {
+                    val s = grid[i][grid[i].size/2]
+                    s.c = '|'
+                    s.occupied = true
+                }
+            Flower.Stem.BROKEN -> {
+                val b1 = grid[grid.size / 2][grid[grid.size / 2].size / 2]
+                val b0 = grid[grid.size / 2 - 1][grid[grid.size / 2].size / 2]
+                val b2 = grid[grid.size / 2 + 1][grid[grid.size / 2].size / 2]
+                val b1B = grid[grid.size / 2][grid[grid.size / 2].size / 2 +1]
+                b0.c = '/'; b1.c = '`'; b2.c = ','; b1B.c = '_'
+                b0.occupied = true; b1.occupied = true; b2.occupied = true; b1B.occupied = true
+                for (i in grid.indices) {
+                    val s = grid[i][grid[i].size / 2]
+                    if(!s.occupied) {
+                        s.c = '|'
+                        s.occupied = true
+                    }
+                }
+            }
+        }
+        //This when statement determines the value of a newly declared variable
+        val leaf: String = when (flower.leafType) {
+            Flower.Leaves.POINTED ->{
+                " __.\n/__/"
+            }
+            Flower.Leaves.ROUND ->{
+                " (_)\n/`  "
+            }
+            Flower.Leaves.SPIKY ->{
+                " ,% \n%'  "
+            }
+        }
+        val startX = NUM_LINES/2 - 2
+        val startY = LINE_LENGTH/2 + 1
+        var i = 0
+        while(leaf[i] != '\n'){
+            grid[startX-1][startY+i].c = leaf[i]
+            grid[startX][startY+i].c = leaf[leaf.indexOf('\n')+i+1]
+            grid[startX-1][startY+i].occupied = true
+            grid[startX][startY+i].occupied = true
+            i++
+        }
+    }
+    //Here is a 2-dimensional array in Kotlin.
+    //Arrays are treated as objects and have two parameters:
+    // 1) the size of the array
+    // 2) a function that determines the contents of the array
+    val stemGrid = Array(NUM_LINES) {Array(LINE_LENGTH){ GridSpace(false, ' ') } }
+    setGrid(stemGrid)
+    print(flower.budType.toString())
+    for(i in stemGrid.indices) {
+        for (j in stemGrid[i].indices) print(stemGrid[i][j].c)
+        println()
+    }
+}
