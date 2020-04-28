@@ -31,123 +31,113 @@
             </div>
             <h2>About</h2>
             <p>
-                The maze generator is a fun project that can be used to become more familiar with most languages. Many algorithms for maze generation can be found on line but I settled on the recursive division algorithm to keep this program short. It starts out by populating the full board with only walls. Then it creates and entrance and exit. There are only 4 possible directions and for every direction it checks for either more walls or more paths.
+                The maze generator is a fun project that can be used to become more familiar with most languages. Many algorithms for maze generation can be found online but I settled on the recursive division algorithm to keep this program short. It starts out by populating the full board with only walls. Then it creates and entrance and exit. There are only 4 possible directions and for every direction it checks for either more walls or more paths.
             </p>
-            <h2>Compiling and Running</h2>
-            <p>
-                To compile the maze generator program run the following command in the directory containing the source file:
-                <code>$ kotlinc Maze.kt -d Maze.jar</code>
-                Next use the following command to run the program:
-                <code>$ java -jar Maze.jar</code>
+
             </p>
-                <div class="kotlin-code" theme="idea">
-                   import Maze.Cell.*
-import kotlin.random.Random
-
-class Maze(private val width: Int, private val height: Int) //recursive algorithm
-{
-
-    private enum class Cell
+<div class="kotlin-code" theme="idea">
+    import Maze.Cell.*
+    import kotlin.random.Random
+    
+    class Maze(private val width: Int, private val height: Int) //recursive backtracking algorithm
     {
-        WALL, PATH
-    }
-
-    private val data = Array(width)
-    { //Array<Array<Maze.Cell>>
-        Array(height)
+    
+        private enum class Cell
         {
-            PATH
+            WALL, PATH
         }
-    }
-
-    init
-    {
-        generate()
-    }
-
-    private fun maze(x: Int, y: Int)
-    {
-
-        val traceX = intArrayOf(1, -1, 0, 0) //left, right
-        val traceY = intArrayOf(0, 0, 1, -1) //up, down
-        var dir = Random.nextInt(until = 4)
-        var count = 0
-        while(count < 4)
-        {
-            val x1 = x + traceX[dir]
-            val x2 = x1 + traceX[dir]
-            val y1 = y + traceY[dir]
-            val y2 = y1 + traceY[dir]
-
-            if(data[x1][y1] == WALL && data[x2][y2] == WALL)
+    
+        private val data = Array(width)
+        { //Array<Array<Maze.Cell>>
+            Array(height)
             {
-                data[x1][y1] = PATH
-                data[x2][y2] = PATH
-                maze(x2, y2)
-            }
-            else
-            {
-                dir = (dir + 1) % 4 //keep getting closer to the end of the path
-                count += 1
+                PATH
             }
         }
-
-    }
-
-    fun generate()
-    {
-        for(x in 0 until width)
-        { //sets all cells to walls
-            for(y in 0 until height)
-            {
-                data[x][y] = WALL
-            }
-        }
-
-        for(x in 0 until width)
-        { //sets the x outline of the path wall
-            data[x][0] = PATH
-            data[x][height-1] = PATH
-        }
-        
-        for(y in 0 until height)
-        { //sets the y outline of the
-            data[0][y] = PATH
-            data[width-1][y] = PATH
-        }
-
-        data[2][2] = PATH //double check that start of maze is a path
-        maze(2, 2) //generates all paths from the start of the path
-        data[2][1] = PATH //sets the start of the path
-        data[width - 3][height - 2] = PATH //sets the end of the path
-    }
-
-    fun print()
-    { //iterates through entire maze and prints each cell
-        for(y in 0 until height)
+    
+        private fun maze(x: Int, y: Int)
         {
-            for(x in 0 until width)
+            val traceX = intArrayOf(1, -1, 0, 0) //right, left, nothing, nothing
+            val traceY = intArrayOf(0, 0, 1, -1) //nothing, nothing, up, down
+            var dir = Random.nextInt(until = 4)
+            var count = 0
+    
+            while(count < 4)
             {
-                if(data[x][y] == WALL)
+                val x1 = x + traceX[dir] //pick first x direction
+                val x2 = x1 + traceX[dir] //pick 2nd x direction based on first.
+                val y1 = y + traceY[dir] //pick first y direction
+                val y2 = y1 + traceY[dir] //pick 2nd y direction based on first.
+    
+                if(data[x1][y1] == WALL && data[x2][y2] == WALL) //if both possible x and y directions are walls, carve, the x2 and y2 are to stop path overlap
                 {
-                    print("|||")
+                    data[x1][y1] = PATH //sets path to random direction
+                    data[x2][y2] = PATH //sets path to every other space. Sort of creating bridges for x1 and y1 to seek possible paths
+                    maze(x2, y2) //run recursively based on the last location
                 }
                 else
                 {
-                    print("   ")
+    
+                    dir = (dir + 1) % 4 //sets direction, closer to the end
+                    count += 1 //make sure path ends
                 }
             }
-            println()
+    
         }
+    
+        fun generate()
+        {
+            for(x in 0 until width)
+            { //sets all cells to walls
+                for(y in 0 until height)
+                {
+                    data[x][y] = WALL
+                }
+            }
+    
+            for(x in 0 until width)
+            { //sets the x outline of bottom for path reference
+                data[x][0] = PATH
+                data[x][height-1] = PATH
+            }
+            for(y in 0 until height)
+            { //sets the y outline of right for path reference
+                data[0][y] = PATH
+                data[width-1][y] = PATH
+            }
+    
+            data[2][2] = PATH //double check that start of maze is a path
+            maze(2, 2) //generates all paths from the start of the path
+            data[2][1] = PATH //sets the start of the path
+            data[width - 3][height - 2] = PATH //sets the end of the path
+        }
+    
+        fun print()
+        { //iterates through entire maze and prints each cell
+            for(y in 0 until height)
+            {
+                for(x in 0 until width)
+                {
+                    if(data[x][y] == WALL)
+                    {
+                        print("|||")
+                    }
+                    else
+                    {
+                        print("   ")
+                    }
+                }
+                println()
+            }
+        }
+    
     }
-
-}
-
+    
 fun main()
 {
-    val m = Maze(27, 23) //CHANGE ME!!! I MUST BE ODD!
-    m.generate()
-    m.print()
+val m = Maze(27, 23) //must be odd
+m.generate()
+m.print()
 }
                 </div>
         </div>
